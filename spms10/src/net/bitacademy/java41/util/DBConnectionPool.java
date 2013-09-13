@@ -14,7 +14,7 @@ public class DBConnectionPool {
 	
 	ArrayList<Connection> list = new ArrayList<Connection>();
 	Hashtable<Thread , Connection > rentTable = new Hashtable<Thread,Connection>();
-	// Map table  허용하지않고 Table null은 널 허용
+
 	
 	
 	
