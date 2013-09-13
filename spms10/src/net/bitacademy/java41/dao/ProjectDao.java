@@ -253,8 +253,8 @@ public class ProjectDao {
 		}
 	}
 
-	public int remove(int no) throws Exception {
-		Connection con = null;
+	public int remove(int no ,Connection transactionConnection) throws Exception {
+		Connection con = transactionConnection;
 		PreparedStatement stmt = null;
 		
 		try {
@@ -272,13 +272,11 @@ public class ProjectDao {
 			
 		} finally {
 			try {stmt.close();} catch(Exception e) {}
-			if (con != null) {
-				conPool.returnConnection(con);
-			}
+		
 		}
 	}
-	public int remove2(int no) throws Exception {
-		Connection con = null;
+	public int remove2(int no,Connection transactionConnection) throws Exception {
+		Connection con = transactionConnection;
 		PreparedStatement stmt = null;
 		
 		try {
@@ -296,9 +294,7 @@ public class ProjectDao {
 			
 		} finally {
 			try {stmt.close();} catch(Exception e) {}
-			if (con != null) {
-				conPool.returnConnection(con);
-			}
+			
 		}
 	}
 }

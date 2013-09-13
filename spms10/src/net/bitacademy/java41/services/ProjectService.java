@@ -52,13 +52,29 @@ public class ProjectService {
 		}
 	}
 	
-	public int deleteProject(int no) throws Exception{
-		projectDao.remove2(no);
-	    return projectDao.remove(no);
+	public void deleteProject(int no) throws Exception{
+		Connection con = dbPool.getConnection();
+		con.setAutoCommit(false);
+		try {
 		
-		
+			projectDao.remove2(no,con);
+		    projectDao.remove(no,con);
+			
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			throw e;
+			
+		} finally {
+			con.setAutoCommit(true);
+			dbPool.returnConnection(con);
+		}
 	}
-
+		
+	  
+	    
+		
+	
 	public Project get(int no) throws Exception {
 		Project project = projectDao.get(no);
 	   return project;
